@@ -17,33 +17,57 @@ function TodoForm(props) {
     e.preventDefault();
     e.target.reset();
     props.handleSubmit(item);
-    this.setState({});
+    setItem({});
   };
 
 
     return (
       <>
-        <h3>Add Item</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <span>To Do Item</span>
-            <input
-              name="text"
-              placeholder="Add To Do List Item"
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            <span>Difficulty Rating</span>
-            <input defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
-          </label>
-          <label>
-            <span>Assigned To</span>
-            <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
-          </label>
-          <button>Add Item</button>
-        </form>
-      </>
+      <Card className="p-5 mr-5">
+        <Card.Title>Add Item</Card.Title>
+        <Form onSubmit={handleSubmit}>
+          <Container>
+            <Row>
+              <Form.Label>
+                <span>To Do Item</span>
+                <Form.Control
+                  name="text"
+                  placeholder="Add To Do List Item"
+                  onChange={handleInputChange}
+                />
+              </Form.Label>
+            </Row>
+            <Row>
+              <Form.Label>
+                <span>Assigned To</span>
+                <Form.Control
+                  type="text"
+                  name="assignee"
+                  placeholder="Assigned To"
+                  onChange={handleInputChange}
+                />
+              </Form.Label>
+            </Row>
+            <Row>
+              <Form.Label>
+                <span>Difficulty Rating</span>
+                <Form.Control
+                  className="w-5"
+                  onChange={handleInputChange}
+                  type="range"
+                  min="1"
+                  max="5"
+                  name="difficulty"
+                />
+              </Form.Label>
+            </Row>
+            <Button variant="primary" type="submit">
+              Add Item
+            </Button>
+          </Container>
+        </Form>
+      </Card>
+    </>
     );
 
 }

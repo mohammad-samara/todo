@@ -16,7 +16,7 @@ function ToDo(props) {
   const addItem = (item) => {
     item._id = Math.random();
     item.complete = false;
-    setList([...this.state.list, item]);
+    setList([...list, item]);
   };
 
   const toggleComplete = id => {
@@ -44,26 +44,30 @@ function ToDo(props) {
   }, []);
 
     return (
-    <>
+      <>
       <header>
-        <h2>
-          There are {list.filter(item => !item.complete).length} Items To Complete
-          </h2>
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand>HOME</Navbar.Brand>
+        </Navbar>
       </header>
 
-      <section className="todo">
+      <Navbar variant="dark" bg="dark" className="mt-4 ml-5 mr-5">
+        <Navbar.Brand>
+          There are {list.filter((item) => !item.complete).length} Items To
+          Complete
+        </Navbar.Brand>
+      </Navbar>
+      <Container className="ml-5 mr-5 mt-5">
+        <Row className="ml-5">
+          <div>
+            <TodoForm handleSubmit={addItem} />
+          </div>
 
-        <div>
-          <TodoForm handleSubmit={addItem} />
-        </div>
-
-        <div>
-          <TodoList
-            list={list}
-            handleComplete={toggleComplete}
-          />
-        </div>
-      </section>
+          <div>
+            <TodoList list={list} handleComplete={toggleComplete} />
+          </div>
+        </Row>
+      </Container>
     </>
   );
 
