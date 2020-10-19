@@ -42,6 +42,11 @@ body, html {
         }
     }
 
+    #todoCardsContainer{
+        width: 75%;
+        text-align: center;
+    }
+
     ul {
         list-style-type:none;
         margin:0;
@@ -88,6 +93,9 @@ body, html {
                 margin: 0 .75em;
             }
 
+        }
+        #deleteItem{
+            color:  red;
         }
     }
 
