@@ -27,7 +27,9 @@ const useAjax = () => {
   
       if (item._id) {
   
-        item.complete = item.complete === 'complete' ? 'pending' : 'complete';
+        // item.complete = item.complete === 'complete' ? 'pending' : 'complete';
+
+        item.complete = !item.complete;
   
         let url = `${todoAPI}/${id}`;
   
