@@ -79,7 +79,7 @@ const ToDo = () => {
 
       <header>
         <h2>
-          There are {list.filter(item => item.complete === 'pending').length} Items To Complete
+          There are {list.filter(item => !item.complete).length} Items To Complete
         </h2>
       </header>
       </Navbar>
@@ -90,7 +90,7 @@ const ToDo = () => {
           <TodoForm handleSubmit={_addItem} />
         </div>
 
-        <div>
+        <div id="todoCardsContainer">
           <TodoList
             list={list}
             handleComplete={_toggleComplete}

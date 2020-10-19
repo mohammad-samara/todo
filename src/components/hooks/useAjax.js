@@ -66,7 +66,7 @@ const useAjax = () => {
   
     const _getTodoItems = () => {
     axios.get(todoAPI)
-      .then(response => setList(response.data.result))
+      .then(response => setList(response.data.results))
     };
 
     return [list , _addItem , _toggleComplete , _getTodoItems ,deleteItem]
