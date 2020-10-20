@@ -65,6 +65,7 @@ function TodoForm(props) {
                   type="range"
                   min="1"
                   max="5"
+                  defaultValue="1"
                   name="difficulty"
                 />
               </Form.Label>

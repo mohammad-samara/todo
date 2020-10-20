@@ -4,6 +4,17 @@ import TodoList from './list.js';
 
 import useAjax from '../hooks/useAjax'
 
+import Pagination from './pagination';
+import ToggleShowProvider from '../context/hideShow';
+import ToggleHideShow from './toggleHideShow';
+
+import PaginationContext from '../context/paginationCo';
+import ChangeNumberOfPages from './itemperpage';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import './todo.scss';
 
@@ -12,92 +23,58 @@ const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';//'mongodb://local
 
 const ToDo = () => {
 
-  const [list , _addItem , _toggleComplete , _getTodoItems , deleteItem] = useAjax()
-  // const [list, setList] = useState([]);
+  const [list, _addItem, _toggleComplete, _getTodoItems, _deleteItem] = useAjax()
 
-  // const _addItem = (item) => {
-  //   item.due = new Date();
-  //   fetch(todoAPI, {
-  //     method: 'post',
-  //     mode: 'cors',
-  //     cache: 'no-cache',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(item)
-  //   })
-  //     .then(response => response.json())
-  //     .then(savedItem => {
-  //       setList([...list, savedItem])
-  //     })
-  //     .catch(console.error);
-  // };
-
-  // const _toggleComplete = id => {
-
-  //   let item = list.filter(i => i._id === id)[0] || {};
-
-  //   if (item._id) {
-
-  //     item.complete = !item.complete;
-
-  //     let url = `${todoAPI}/${id}`;
-
-  //     fetch(url, {
-  //       method: 'put',
-  //       mode: 'cors',
-  //       cache: 'no-cache',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(item)
-  //     })
-  //       .then(response => response.json())
-  //       .then(savedItem => {
-  //         setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
-  //       })
-  //       .catch(console.error);
-  //   }
-  // };
-
-  // const _getTodoItems = () => {
-  //   fetch(todoAPI, {
-  //     method: 'get',
-  //     mode: 'cors',
-  //   })
-  //     .then(data => data.json())
-  //     .then(data => setList(data.results))
-  //     .catch(console.error);
-  // };
 
   useEffect(_getTodoItems, []);
 
   return (
     <>
-    <Navbar bg="primary" variant="dark">
-      <h1>
-        Home
-      </h1>
-    </Navbar>
-    <Navbar bg="dark" variant="dark">
+      <Container>
+        <ToggleShowProvider list={list}>
 
-      <header>
-        <h2>
-          There are {list.filter(item => !item.complete).length} Items To Complete
-        </h2>
-      </header>
-      </Navbar>
+          <Row className="justify-content-md-center">
+            <Col><h2>
+              {/* There are {list.filter(item => item.complete == 'pending').length} Items To Complete */}
+            There are {list.filter(item => !item.complete).length} Items To Complete
+        </h2></Col>
 
-      <section className="todo">
+            <Col>  <ToggleHideShow /> </Col>
+          </Row>
+          <Row className="todo">
+            <Col className="form">
+              <div>
+                <TodoForm handleSubmit={_addItem} />
+              </div></Col>
+            <PaginationContext list={list}>
 
-        <div>
-          <TodoForm handleSubmit={_addItem} />
-        </div>
+              <Col >
 
-        <div id="todoCardsContainer">
-          <TodoList
-            list={list}
-            handleComplete={_toggleComplete}
-            handleDelete={deleteItem}
-          />
-        </div>
-      </section>
+                <ChangeNumberOfPages />
+
+                <TodoList
+                  // list={currentItems}
+                  handleComplete={_toggleComplete}
+                  // handleDelete={_deleteItem}
+                  handleDelete={_deleteItem}
+                />
+                <br />
+                <br />
+                <Row >
+                  <Pagination
+                    // itemsPerPage={itemsPerPage}
+                    totalItems={list.length}
+                  // paginate={paginate}
+                  // currentPage={currentPage}
+
+                  />
+                </Row>
+              </Col>
+            </PaginationContext>
+          </Row>
+        </ToggleShowProvider>
+
+      </Container>
     </>
   );
 };
