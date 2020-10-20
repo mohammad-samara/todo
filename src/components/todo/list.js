@@ -17,10 +17,10 @@ function TodoList(props) {
     return (
       <Container  className="ul">
       {pagination.currentItem.map((item) => (
-        <Container className={` complete-${item.complete}-${toggleContext.status} li`}  key={item._id}>
+        <Container className={` complete-${item.complete ? 'complete' : 'pending'}-${toggleContext.status} li`}  key={item._id}>
         <Row className="firstRow">
-            <Col  key={item._id} className={`complete-${item.complete}`}  onClick={() => props.handleComplete(item._id)}>
-               {item.complete}
+            <Col  key={item._id} className={`complete-${item.complete ? 'complete' : 'pending'}`}  onClick={() => props.handleComplete(item._id)}>
+               {item.complete ? 'complete' : 'pending'}
              </Col>
             <Col> {item.assignee} </Col>
             <Col className="text-end">
