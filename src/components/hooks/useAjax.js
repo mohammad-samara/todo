@@ -47,7 +47,7 @@ const useAjax = () => {
           .catch(console.error);
       }
     };
-    const deleteItem = id => {
+    const _deleteItem = id => {
         let item = list.filter(i => i._id === id)[0] || {};
         if (item._id) {
           let url = `${todoAPI}/${id}`;
@@ -71,7 +71,7 @@ const useAjax = () => {
       .then(response => setList(response.data.results))
     };
 
-    return [list , _addItem , _toggleComplete , _getTodoItems ,deleteItem]
+    return [list , _addItem , _toggleComplete , _getTodoItems ,_deleteItem]
 
 }
 

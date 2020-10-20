@@ -1,27 +1,44 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import React, { useContext } from 'react';
+
+import {ToggleContext} from '../context/hideShow';
+import {PaginationContext} from '../context/paginationCo';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import ListGroup from 'react-bootstrap/ListGroup';
 
 function TodoList(props) {
-
+  const toggleContext = useContext(ToggleContext);
+  const pagination = useContext(PaginationContext);
 
     return (
-      <ul>
-      {props.list.map((item) => (
-        <Card
-          // variant={item.complete ? 'success' : 'danger'}
-          className={`complete-${item.complete.toString()}`}
-          key={item._id}
-        >
-          <Card.Header>{item.complete?"complete":"pending"}  {item.assignee}</Card.Header>
-          <Card.Text onClick={() => props.handleComplete(item._id)}>
-            {item.text}  {item.difficulty }
-          </Card.Text>
-          <Button variant="danger" className='delete' onClick={() => props.handleDelete(item._id)}>X</Button>
-        </Card>
+      <Container  className="ul">
+      {pagination.currentItem.map((item) => (
+        <Container className={` complete-${item.complete}-${toggleContext.status} li`}  key={item._id}>
+        <Row className="firstRow">
+            <Col  key={item._id} className={`complete-${item.complete}`}  onClick={() => props.handleComplete(item._id)}>
+               {item.complete}
+             </Col>
+            <Col> {item.assignee} </Col>
+            <Col className="text-end">
+             <button onClick={() => props.handleDelete(item._id)}>x</button>
+            </Col>
+        </Row>
+        <Row>
+        <Col md="auto">
+          {item.text} 
+          </Col>
+        </Row>
+        <Row className="text-end">
+        <Col md={{ span: 9, offset: 3 }}> Difficulty : {item.difficulty}</Col>
+       
+        </Row>
+    </Container>
       ))}
-    </ul>
+    </Container>
     );
 
 }
