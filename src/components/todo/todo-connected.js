@@ -11,6 +11,8 @@ import ToggleHideShow from './toggleHideShow';
 import PaginationContext from '../context/paginationCo';
 import ChangeNumberOfPages from './itemperpage';
 
+import Auth from '../auth/auth';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -43,9 +45,10 @@ const ToDo = () => {
           </Row>
           <Row className="todo">
             <Col className="form">
+            <Auth capability='update'>
               <div>
                 <TodoForm handleSubmit={_addItem} />
-              </div></Col>
+              </div></Auth></Col>
             <PaginationContext list={list}>
 
               <Col >
